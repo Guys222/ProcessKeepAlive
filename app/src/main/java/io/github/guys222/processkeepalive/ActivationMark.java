@@ -1,4 +1,4 @@
-package com.processkeepalive;
+package io.github.guys222.processkeepalive;
 
 import java.io.File;
 import java.io.FileOutputStream;

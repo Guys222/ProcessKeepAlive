@@ -3,6 +3,6 @@
     <!-- LSPosed 作用域：系统框架 + 模块自身（用于主页激活状态检测） -->
     <string-array name="xposed_scope">
         <item>android</item>
-        <item>com.processkeepalive</item>
+        <item>io.github.guys222.processkeepalive</item>
     </string-array>
 </resources>

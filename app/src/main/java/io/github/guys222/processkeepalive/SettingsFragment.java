@@ -1,4 +1,4 @@
-package com.processkeepalive;
+package io.github.guys222.processkeepalive;
 
 import android.content.ClipData;
 import android.content.ClipboardManager;

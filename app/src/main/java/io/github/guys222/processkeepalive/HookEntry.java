@@ -1,4 +1,4 @@
-package com.processkeepalive;
+package io.github.guys222.processkeepalive;
 
 import android.util.Log;
 
@@ -11,7 +11,7 @@ import de.robv.android.xposed.callbacks.XC_LoadPackage;
  * Xposed 入口。
  *
  * - 注入 system_server（包名 "android"）：执行所有保活钩子；
- * - 注入模块自身（包名 com.processkeepalive）：在本进程内写「激活标记」，供主页实时判断
+ * - 注入模块自身（包名 io.github.guys222.processkeepalive）：在本进程内写「激活标记」，供主页实时判断
  *   LSPosed 是否真正启用了本模块。
  */
 public class HookEntry implements IXposedHookLoadPackage {

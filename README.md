@@ -9,7 +9,7 @@
 
 ## 下载
 
-到 [Releases](../../releases)（release 签名，已用本项目专用 keystore 签名），可直接安装，无需自行编译。
+到 [Releases](../../releases)（https://github.com/Guys222/ProcessKeepAlive/releases）页面下载最新的 `ProcessKeepAlive-v3.2-release.apk`（release 签名，已用本项目专用 keystore 签名），可直接安装，无需自行编译。
 
 ## 它能做什么
 
@@ -60,7 +60,7 @@ OOM Adj 只「下调、不上调」：绝不会把正在前台运行的进程优
 1. 手机已解锁 Bootloader、刷入 **Magisk**，并安装 **LSPosed**（Zygisk 版）。
 2. 安装本模块 APK。
 3. 打开 LSPosed Manager → 模块 → 启用「进程保活」。
-4. **作用域勾选「系统框架（android）」和「本模块（com.processkeepalive）」**——
+4. **作用域勾选「系统框架（android）」和「本模块（io.github.guys222.processkeepalive）」**——
    前者执行保活钩子，后者用于主页的「模块激活状态」检测。
 5. 打开模块 App（底部三页导航，所有改动即时保存）：
    - **应用**：搜索、勾选要保活的应用；右上角菜单可开关「显示系统应用」、全部开启/关闭；
@@ -104,7 +104,7 @@ adb shell "cat /proc/<pid>/oom_score_adj"
 ProcessKeepAlive/
 ├── app/src/main/
 │   ├── assets/xposed_init               # Xposed 入口声明
-│   ├── java/com/processkeepalive/
+│   ├── java/io/github/guys222/processkeepalive/
 │   │   ├── HookEntry.java               # 入口：注入 system_server
 │   │   ├── KeepAliveHooks.java          # 核心钩子
 │   │   ├── Prefs.java                   # 配置读取

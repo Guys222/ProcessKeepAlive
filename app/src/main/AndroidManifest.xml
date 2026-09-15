@@ -32,7 +32,7 @@
         <!-- 向 system_server 暴露配置的 ContentProvider（跨进程读配置） -->
         <provider
             android:name=".ConfigProvider"
-            android:authorities="com.processkeepalive.config"
+            android:authorities="io.github.guys222.processkeepalive.config"
             android:exported="true" />
 
         <!-- LSPosed / Xposed 模块声明 -->

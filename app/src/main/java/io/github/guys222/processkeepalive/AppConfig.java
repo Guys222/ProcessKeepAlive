@@ -1,4 +1,4 @@
-package com.processkeepalive;
+package io.github.guys222.processkeepalive;
 
 /** 单个目标应用的保活配置。 */
 public class AppConfig {
