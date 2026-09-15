@@ -335,7 +335,7 @@
                     android:id="@+id/repo_value"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="www.baidu.com"
+                    android:text="github.com/Guys222/ProcessKeepAlive"
                     android:textSize="13sp"
                     android:textColor="#8a8a8a" />
             </LinearLayout>

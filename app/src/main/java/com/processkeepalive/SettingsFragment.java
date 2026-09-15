@@ -48,7 +48,7 @@ public class SettingsFragment extends Fragment {
         view.findViewById(R.id.btn_copy_author).setOnClickListener(v ->
                 copy("Guys222"));
         view.findViewById(R.id.btn_copy_repo).setOnClickListener(v ->
-                copy("www.baidu.com"));
+                copy("https://github.com/Guys222/ProcessKeepAlive"));
 
         TextView version = view.findViewById(R.id.version_value);
         version.setText(BuildConfig.VERSION_NAME);
