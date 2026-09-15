@@ -1,0 +1,7 @@
+name=进程保活
+description=Android 后台保活模块：防止目标应用被系统杀死
+author=ProcessKeepAlive
+versionName=3.2
+versionCode=25
+minApiVersion=100
+targetApiVersion=102

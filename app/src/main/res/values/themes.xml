@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="AppTheme" parent="Theme.Material3.Light.NoActionBar">
+        <item name="colorPrimary">#6750a4</item>
+        <item name="colorOnPrimary">#ffffff</item>
+        <item name="colorPrimaryContainer">#eaddff</item>
+        <item name="colorOnPrimaryContainer">#21005d</item>
+        <item name="colorSecondary">#625b71</item>
+        <item name="colorSecondaryContainer">#e8def8</item>
+        <item name="colorOnSecondaryContainer">#1d192b</item>
+        <item name="colorSurface">#fef7ff</item>
+        <item name="colorOnSurface">#1b1b1f</item>
+        <item name="android:statusBarColor">#fef7ff</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:windowBackground">#fef7ff</item>
+    </style>
+</resources>

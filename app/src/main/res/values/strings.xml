@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">进程保活</string>
+    <string name="app_desc">Android 后台保活模块：防止目标应用被系统杀死</string>
+</resources>
