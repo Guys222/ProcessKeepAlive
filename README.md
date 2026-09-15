@@ -9,7 +9,7 @@
 
 ## 下载
 
-到 [Releases](../../releases)（https://github.com/Guys222/ProcessKeepAlive/releases）页面下载最新的 `ProcessKeepAlive-v3.2-release.apk`（release 签名，已用本项目专用 keystore 签名），可直接安装，无需自行编译。
+到 [Releases](../../releases)`（release 签名，已用本项目专用 keystore 签名），可直接安装，无需自行编译。
 
 ## 它能做什么
 
