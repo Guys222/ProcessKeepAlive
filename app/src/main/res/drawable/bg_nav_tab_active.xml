@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 预览稿 .nav .tab.active：background rgba(180,107,255,.12) + radius 12 -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="@color/navActiveBg" />
+    <corners android:radius="12dp" />
+</shape>

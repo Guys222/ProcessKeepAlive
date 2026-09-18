@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 能力状态徽标底（圆角方）：实底由代码按 ✅/❌ 着色 -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="@color/colorSurfaceVariant" />
+    <corners android:radius="9dp" />
+</shape>

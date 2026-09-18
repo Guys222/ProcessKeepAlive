@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  方案 14「进度聚焦」· 应用行卡片（预览稿 .k14 .row）
+  13dp 圆角、colorSurface 实底、无描边，靠行间距区分。
+  按压反馈用 ripple 包裹，保持可点击感。
+-->
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+    android:color="@color/rowRipple">
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="@color/colorSurface" />
+            <corners android:radius="13dp" />
+        </shape>
+    </item>
+</ripple>

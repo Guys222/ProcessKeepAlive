@@ -1,0 +1,16 @@
+# 签名配置模板
+#
+# 使用方法：
+#   1. 复制本文件为 key.properties（该文件已被 .gitignore 忽略，不会进仓库）
+#   2. 填入你的真实签名信息
+#
+# 生成密钥库（若还没有）：
+#   keytool -genkeypair -v -keystore ProcessKeepAlive-release-key.jks \
+#     -keyalg RSA -keysize 2048 -validity 10000 -alias processkeepalive
+#
+# 注意：minSdk >= 24 时 AGP 会忽略 v1 签名，自动使用 v2 + v3。
+
+storeFile=ProcessKeepAlive-release-key.jks
+storePassword=你的密钥库口令
+keyAlias=你的密钥别名
+keyPassword=你的密钥口令

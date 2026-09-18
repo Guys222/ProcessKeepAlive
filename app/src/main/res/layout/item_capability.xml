@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  能力自检单项（代码动态填充）
+  行结构：状态徽标 + [能力名 / 命中详情] + 展开箭头
+  未命中时在 detail 行显示红色提示，并可点开看「尝试过的候选名」。
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_marginBottom="9dp"
+    android:paddingStart="14dp"
+    android:paddingEnd="14dp"
+    android:paddingTop="12dp"
+    android:paddingBottom="12dp"
+    android:background="@drawable/bg_card">
+
+    <LinearLayout
+        android:id="@+id/cap_head"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:clickable="true"
+        android:focusable="true">
+
+        <!-- 状态徽标：✅ / ❌ 文字，底色由代码着色 -->
+        <TextView
+            android:id="@+id/cap_badge"
+            android:layout_width="26dp"
+            android:layout_height="26dp"
+            android:gravity="center"
+            android:textSize="13sp"
+            android:text="✓"
+            android:textColor="@color/colorOk"
+            android:background="@drawable/bg_cap_badge" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="11dp"
+            android:layout_marginEnd="6dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/cap_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:textColor="@color/colorOnSurface" />
+
+            <TextView
+                android:id="@+id/cap_detail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:textSize="11.5sp"
+                android:textColor="@color/colorOnSurfaceVariant"
+                android:lineSpacingExtra="2dp" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/cap_arrow"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:padding="3dp"
+            android:src="@drawable/ic_chevron"
+            app:tint="@color/colorOnSurfaceVariant"
+            android:contentDescription="展开" />
+    </LinearLayout>
+
+    <!-- 展开区：显示命中方法名 / 重载数 / 候选名（默认隐藏） -->
+    <TextView
+        android:id="@+id/cap_expand"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="9dp"
+        android:layout_marginStart="37dp"
+        android:visibility="gone"
+        android:lineSpacingExtra="3dp"
+        android:textSize="11.5sp"
+        android:fontFamily="monospace"
+        android:textColor="@color/colorOnSurfaceVariant"
+        android:background="@drawable/bg_chip"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp" />
+</LinearLayout>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- SwitchCapsuleView：预览稿 .sw 的自绘胶囊开关 -->
+    <declare-styleable name="SwitchCapsuleView">
+        <!-- 初始选中态（等价 CompoundButton 的 android:checked） -->
+        <attr name="scvChecked" format="boolean" />
+        <!-- 开启时用紫粉渐变轨道（对应预览稿 .sw.acc） -->
+        <attr name="scvAccent" format="boolean" />
+    </declare-styleable>
+</resources>

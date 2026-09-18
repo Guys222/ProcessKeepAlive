@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  主容器 · 底栏改为自绘（对齐 preview.html .nav）
+  .nav .tab{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;
+            color:muted;font-size:11px;font-weight:600;padding:6px 0;border-radius:12px}
+  .nav .tab .e{font-size:21px}
+  .nav .tab.active{color:var(- accent);background:rgba(180,107,255,.12)}
+  Material 的 BottomNavigationView 自带 80dp 高度、药丸指示器与涟漪，
+  与预览稿的紧凑两行 tab 差异过大，故改用 LinearLayout 自绘。
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBg">
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/pager"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <!-- ★ 059 P2：去掉无引用的 @+id/bottom_nav（纯容器，代码靠子项 id 操作） -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="14dp"
+        android:background="@drawable/bg_nav_bar">
+
+        <LinearLayout
+            android:id="@+id/nav_apps"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:paddingTop="6dp"
+            android:paddingBottom="6dp"
+            android:clickable="true"
+            android:focusable="true">
+
+            <ImageView
+                android:id="@+id/nav_apps_icon"
+                android:layout_width="21dp"
+                android:layout_height="21dp"
+                android:src="@drawable/ic_apps"
+                android:contentDescription="应用" />
+
+            <TextView
+                android:id="@+id/nav_apps_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:text="应用"
+                android:textSize="11sp"
+                android:textStyle="bold"
+                android:textColor="@color/colorOnSurfaceVariant" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/nav_home"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:paddingTop="6dp"
+            android:paddingBottom="6dp"
+            android:clickable="true"
+            android:focusable="true">
+
+            <ImageView
+                android:id="@+id/nav_home_icon"
+                android:layout_width="21dp"
+                android:layout_height="21dp"
+                android:src="@drawable/ic_home"
+                android:contentDescription="主页" />
+
+            <TextView
+                android:id="@+id/nav_home_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:text="主页"
+                android:textSize="11sp"
+                android:textStyle="bold"
+                android:textColor="@color/colorOnSurfaceVariant" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/nav_process"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:paddingTop="6dp"
+            android:paddingBottom="6dp"
+            android:clickable="true"
+            android:focusable="true">
+
+            <ImageView
+                android:id="@+id/nav_process_icon"
+                android:layout_width="21dp"
+                android:layout_height="21dp"
+                android:src="@drawable/ic_processes"
+                android:contentDescription="进程" />
+
+            <TextView
+                android:id="@+id/nav_process_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:text="进程"
+                android:textSize="11sp"
+                android:textStyle="bold"
+                android:textColor="@color/colorOnSurfaceVariant" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/nav_settings"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:paddingTop="6dp"
+            android:paddingBottom="6dp"
+            android:clickable="true"
+            android:focusable="true">
+
+            <ImageView
+                android:id="@+id/nav_settings_icon"
+                android:layout_width="21dp"
+                android:layout_height="21dp"
+                android:src="@drawable/ic_settings"
+                android:contentDescription="设置" />
+
+            <TextView
+                android:id="@+id/nav_settings_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:text="设置"
+                android:textSize="11sp"
+                android:textStyle="bold"
+                android:textColor="@color/colorOnSurfaceVariant" />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

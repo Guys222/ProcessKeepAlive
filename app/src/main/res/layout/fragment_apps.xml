@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 应用页 · 对齐 preview.html #tab-apps：搜索条 → chip 行 → 计数 → 列表（整卡包裹） -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="bottom"
+        android:paddingStart="18dp"
+        android:paddingEnd="12dp"
+        android:paddingTop="12dp"
+        android:paddingBottom="14dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="应用"
+            android:textSize="26sp"
+            android:textStyle="bold"
+            android:textColor="@color/colorOnSurface" />
+
+        <ImageButton
+            android:id="@+id/btn_more"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="更多"
+            android:src="@drawable/ic_more_vert"
+            app:tint="@color/colorOnSurface" />
+    </LinearLayout>
+
+    <!-- 搜索条（预览稿 .search：radius 14，padding 11/14） -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginStart="18dp"
+        android:layout_marginEnd="18dp"
+        android:layout_marginBottom="13dp"
+        android:paddingStart="14dp"
+        android:paddingEnd="14dp"
+        android:paddingTop="11dp"
+        android:paddingBottom="11dp"
+        android:background="@drawable/bg_search">
+
+        <ImageView
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:src="@drawable/ic_search"
+            app:tint="@color/colorOnSurfaceVariant"
+            android:contentDescription="搜索" />
+
+        <EditText
+            android:id="@+id/search"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="9dp"
+            android:hint="搜索应用…"
+            android:textSize="14sp"
+            android:textColor="@color/colorOnSurface"
+            android:textColorHint="@color/colorOnSurfaceVariant"
+            android:background="@null"
+            android:inputType="text"
+            android:maxLines="1" />
+    </LinearLayout>
+
+    <!-- 筛选 chip 行（预览稿 .menu：padding 7/13，radius 20） -->
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="18dp"
+        android:paddingEnd="18dp"
+        android:layout_marginBottom="13dp"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/chip_user"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="用户应用"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:textColor="@color/colorOnSurface"
+                android:background="@drawable/bg_chip_filter_active"
+                android:paddingStart="13dp"
+                android:paddingEnd="13dp"
+                android:paddingTop="7dp"
+                android:paddingBottom="7dp"
+                android:clickable="true"
+                android:focusable="true" />
+
+            <TextView
+                android:id="@+id/chip_system"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="显示系统应用"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:textColor="@color/colorOnSurfaceVariant"
+                android:background="@drawable/bg_chip"
+                android:paddingStart="13dp"
+                android:paddingEnd="13dp"
+                android:paddingTop="7dp"
+                android:paddingBottom="7dp"
+                android:clickable="true"
+                android:focusable="true" />
+
+            <TextView
+                android:id="@+id/chip_protected"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="仅看已守护"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:textColor="@color/colorOnSurfaceVariant"
+                android:background="@drawable/bg_chip"
+                android:paddingStart="13dp"
+                android:paddingEnd="13dp"
+                android:paddingTop="7dp"
+                android:paddingBottom="7dp"
+                android:clickable="true"
+                android:focusable="true" />
+
+            <TextView
+                android:id="@+id/chip_closeall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="全部关闭"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:textColor="@color/colorOnSurfaceVariant"
+                android:background="@drawable/bg_chip"
+                android:paddingStart="13dp"
+                android:paddingEnd="13dp"
+                android:paddingTop="7dp"
+                android:paddingBottom="7dp"
+                android:clickable="true"
+                android:focusable="true" />
+        </LinearLayout>
+    </HorizontalScrollView>
+
+    <TextView
+        android:id="@+id/apps_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginBottom="10dp"
+        android:textSize="13sp"
+        android:textStyle="bold"
+        android:letterSpacing="0.03"
+        android:textColor="@color/colorOnSurfaceVariant" />
+
+    <!-- 列表整卡包裹（预览稿 #apps-list 是一张 .card，行间用分隔线） -->
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipe"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingStart="18dp"
+            android:paddingEnd="18dp"
+            android:paddingBottom="18dp"
+            android:clipToPadding="false"
+            android:scrollbars="none" />
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+</LinearLayout>

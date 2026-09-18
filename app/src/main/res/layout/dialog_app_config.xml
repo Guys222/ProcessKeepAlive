@@ -1,0 +1,668 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  单应用配置弹窗（010 · 方案 B 紧凑单行版）
+  风格与主界面一致（卡片底 + 胶囊开关）。
+
+  ★ 方案 B 的改造要点（解决「弹窗太长」）：
+    1. 所有功能压成「一行标题 + 一行摘要 + 胶囊开关」，摘要只留一句人话；
+    2. 大段说明收进详情页——点整行展开/收起（det_*），默认收起，密度最高；
+    3. 开常驻/核心时档位被系统底座接管 → 三行选项整个隐藏（GONE），
+       只留绿色「实际生效」框（adj_real），不再灰着占位浪费高度。
+    4. 取消「拦截功能」「省电拦截」两个大分区标题，全部平铺。
+-->
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:scrollbars="none">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp">
+
+        <!--
+          ★ 053 新增：交互提示条（隐藏式说明的入口指引）。
+          弹窗里所有灰色小字背后都藏着完整说明（档位 det_adj_*、功能 det_*），默认全部收起；
+          但「藏着」没有任何视觉线索，用户不知道能点 —— 这行就是干这个的。
+          053 文案从「点小字可展开」改为明确说明「小字背后是隐藏说明」。
+          放在弹窗最顶部（滚动条最上方），第一次打开必定看见；点一下可关。
+        -->
+        <TextView
+            android:id="@+id/dialog_tip"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:lineSpacingExtra="2dp"
+            android:text="提示：档位和功能下面的灰色小字都是隐藏式说明 —— 点一下展开完整内容，再点一次收起。"
+            android:textSize="11.5sp"
+            android:textColor="@color/colorPrimary"
+            android:background="@drawable/bg_dialog_tip" />
+
+        <TextView
+            android:id="@+id/adj_head"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="保活档位"
+            android:textSize="12.5sp"
+            android:textStyle="bold"
+            android:letterSpacing="0.03"
+            android:textColor="@color/colorOnSurfaceVariant" />
+
+        <!--
+          自绘单选：不用 RadioGroup —— 它的互斥依赖「直接子 View 是 CompoundButton」，
+          中间夹 LinearLayout 后会失效（RadioGroup.LayoutParams.onSetChecked 不再生效），
+          导致三项同时可选。改为每个档位一行，由代码维护选中态。
+        -->
+        <LinearLayout
+            android:id="@+id/adj_rows"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/row_adj_0"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:paddingTop="9dp"
+                android:paddingBottom="9dp"
+                android:clickable="true"
+                android:focusable="true">
+
+                <View
+                    android:id="@+id/dot_adj_0"
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:background="@drawable/bg_radio_dot" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="10dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/label_adj_0"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/colorOnSurface" />
+
+                    <!--
+                      ★ 053：档位摘要改为一行（adj 数值 · 常量名），末尾由代码追加
+                      上色的「展开 ▼ / 收起 ▲」尾巴；完整的效果/代价解释挪进下方
+                      det_adj_* 隐藏块 —— 与「托底保活」那种隐藏式说明同一模式。
+                      点整行 = 选中档位；点这行小字 = 展开/收起隐藏说明。
+                    -->
+                    <TextView
+                        android:id="@+id/desc_adj_0"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="1dp"
+                        android:textSize="11sp"
+                        android:maxLines="1"
+                        android:ellipsize="end"
+                        android:clickable="true"
+                        android:textColor="@color/colorOnSurfaceVariant" />
+
+                    <!-- 053 新增：档位的隐藏式详细说明，默认收起，点摘要小字展开 -->
+                    <TextView
+                        android:id="@+id/det_adj_0"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:lineSpacingExtra="2dp"
+                        android:textSize="11sp"
+                        android:textColor="@color/colorOnSurfaceVariant"
+                        android:visibility="gone" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/row_adj_1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:paddingTop="9dp"
+                android:paddingBottom="9dp"
+                android:clickable="true"
+                android:focusable="true">
+
+                <View
+                    android:id="@+id/dot_adj_1"
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:background="@drawable/bg_radio_dot" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="10dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/label_adj_1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/colorOnSurface" />
+
+                    <TextView
+                        android:id="@+id/desc_adj_1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="1dp"
+                        android:textSize="11sp"
+                        android:maxLines="1"
+                        android:ellipsize="end"
+                        android:clickable="true"
+                        android:textColor="@color/colorOnSurfaceVariant" />
+
+                    <!-- 053 新增：档位的隐藏式详细说明，默认收起，点摘要小字展开 -->
+                    <TextView
+                        android:id="@+id/det_adj_1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:lineSpacingExtra="2dp"
+                        android:textSize="11sp"
+                        android:textColor="@color/colorOnSurfaceVariant"
+                        android:visibility="gone" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/row_adj_2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:paddingTop="9dp"
+                android:paddingBottom="9dp"
+                android:clickable="true"
+                android:focusable="true">
+
+                <View
+                    android:id="@+id/dot_adj_2"
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:background="@drawable/bg_radio_dot" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="10dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/label_adj_2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/colorOnSurface" />
+
+                    <TextView
+                        android:id="@+id/desc_adj_2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="1dp"
+                        android:textSize="11sp"
+                        android:maxLines="1"
+                        android:ellipsize="end"
+                        android:clickable="true"
+                        android:textColor="@color/colorOnSurfaceVariant" />
+
+                    <!-- 053 新增：档位的隐藏式详细说明，默认收起，点摘要小字展开 -->
+                    <TextView
+                        android:id="@+id/det_adj_2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:lineSpacingExtra="2dp"
+                        android:textSize="11sp"
+                        android:textColor="@color/colorOnSurfaceVariant"
+                        android:visibility="gone" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/adj_hint"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:lineSpacingExtra="2dp"
+            android:textSize="11.5sp"
+            android:textColor="@color/colorOnSurfaceVariant" />
+
+        <!-- 开常驻/核心时显示「实际生效」档位，上方三行选择整体隐藏 -->
+        <TextView
+            android:id="@+id/adj_real"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:padding="8dp"
+            android:lineSpacingExtra="2dp"
+            android:textSize="11.5sp"
+            android:textColor="#7fae90"
+            android:background="@drawable/bg_real_adj"
+            android:visibility="gone" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="4dp"
+            android:background="@color/cardDivider" />
+
+        <!-- ═══ 紧凑单行：强力模式（原「拦截功能」区，取消分区标题平铺） ═══ -->
+        <LinearLayout
+            android:id="@+id/row_wrap_force"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:clickable="true"
+            android:focusable="true">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="10dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="阻止强制停止"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/colorOnSurface" />
+
+                    <TextView
+                        android:id="@+id/sum_force"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="1dp"
+                        android:text="拦截系统对整包的强行停止"
+                        android:textSize="11sp"
+                        android:maxLines="2"
+                        android:ellipsize="end"
+                        android:clickable="true"
+                        android:textColor="@color/colorOnSurfaceVariant" />
+                </LinearLayout>
+
+                <io.github.guys222.processkeepalive.SwitchCapsuleView
+                    android:id="@+id/sw_force"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/det_force"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:paddingEnd="52dp"
+                android:lineSpacingExtra="2dp"
+                android:text="拦截系统对整包的「强行停止」（forceStopPackage）。注意：你在系统设置里手动点的强停也会被挡。"
+                android:textSize="11.5sp"
+                android:textColor="@color/colorOnSurfaceVariant"
+                android:visibility="gone" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/row_wrap_killbg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:clickable="true"
+            android:focusable="true">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="10dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="阻止后台杀死"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/colorOnSurface" />
+
+                    <TextView
+                        android:id="@+id/sum_killbg"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="1dp"
+                        android:text="拦截一键清理的批量杀进程"
+                        android:textSize="11sp"
+                        android:maxLines="2"
+                        android:ellipsize="end"
+                        android:clickable="true"
+                        android:textColor="@color/colorOnSurfaceVariant" />
+                </LinearLayout>
+
+                <io.github.guys222.processkeepalive.SwitchCapsuleView
+                    android:id="@+id/sw_killbg"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/det_killbg"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:paddingEnd="52dp"
+                android:lineSpacingExtra="2dp"
+                android:text="拦截系统「一键清理后台 / 内存清理」的批量杀进程（killBackgroundProcesses）。不影响单进程被系统回收。"
+                android:textSize="11.5sp"
+                android:textColor="@color/colorOnSurfaceVariant"
+                android:visibility="gone" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/row_wrap_kill"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:clickable="true"
+            android:focusable="true">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="10dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="强力模式 · 拦截底层杀死"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/colorOnSurface" />
+
+                    <TextView
+                        android:id="@+id/sum_kill"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="1dp"
+                        android:text="兜底拦截最底层杀死入口，更激进"
+                        android:textSize="11sp"
+                        android:maxLines="2"
+                        android:ellipsize="end"
+                        android:clickable="true"
+                        android:textColor="@color/colorOnSurfaceVariant" />
+                </LinearLayout>
+
+                <io.github.guys222.processkeepalive.SwitchCapsuleView
+                    android:id="@+id/sw_kill"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/det_kill"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:paddingEnd="52dp"
+                android:lineSpacingExtra="2dp"
+                android:text="兜底拦截最底层的进程杀死入口（ProcessRecord.kill）。比上面两项更彻底也更激进，可能干扰系统正常回收内存，仅在普通拦截无效时开启。"
+                android:textSize="11.5sp"
+                android:textColor="@color/colorOnSurfaceVariant"
+                android:visibility="gone" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="4dp"
+            android:background="@color/cardDivider" />
+
+        <!-- ═══ 底座：常驻(-800) / 核心(-1000) ═══ -->
+        <LinearLayout
+            android:id="@+id/row_wrap_persist"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:clickable="true"
+            android:focusable="true">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="10dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="托底保活 · 常驻级"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/colorOnSurface" />
+
+                    <TextView
+                        android:id="@+id/sum_persist"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="1dp"
+                        android:text="系统托底：被杀后自动重启，最强也最快"
+                        android:textSize="11sp"
+                        android:maxLines="2"
+                        android:ellipsize="end"
+                        android:clickable="true"
+                        android:textColor="@color/colorOnSurfaceVariant" />
+                </LinearLayout>
+
+                <io.github.guys222.processkeepalive.SwitchCapsuleView
+                    android:id="@+id/sw_persist"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/det_persist"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:paddingEnd="52dp"
+                android:lineSpacingExtra="2dp"
+                android:text="标记为系统常驻，被杀后由「系统」立即重启（约 400–900ms），无需本模块进程存活——它是最强兜底，也最快。\n它是【系统】自己的机制，与设置页「开机拉起（仅开机种子）」开关互不依赖：托底保活不必开那个开关，但【需要进程先存在】才能被打标，开机首次拉起由模块第二防线（归顶部总开关）兜底完成。\n被「强行停止」过的应用本模块与系统都拉不起来，属系统限制。目标可能无法正常退出。"
+                android:textSize="11.5sp"
+                android:textColor="@color/colorOnSurfaceVariant"
+                android:visibility="gone" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/row_wrap_core"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:clickable="true"
+            android:focusable="true">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="10dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="托底保活 · 核心级（实验性）"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/colorOnSurface" />
+
+                    <TextView
+                        android:id="@+id/sum_core"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="1dp"
+                        android:text="比常驻级更强，钉在系统核心级"
+                        android:textSize="11sp"
+                        android:maxLines="2"
+                        android:ellipsize="end"
+                        android:clickable="true"
+                        android:textColor="@color/colorOnSurfaceVariant" />
+                </LinearLayout>
+
+                <io.github.guys222.processkeepalive.SwitchCapsuleView
+                    android:id="@+id/sw_core"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/det_core"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:paddingEnd="52dp"
+                android:lineSpacingExtra="2dp"
+                android:text="比常驻级（-800）更强，强制钉在系统核心级（-1000）。开启会自动连带开启上方「托底保活 · 常驻级」，因此常驻开关会被锁定变灰。⚠实验性：部分 ROM 在下一轮 oom_adj 时会把进程重新标回 -800/-900，且核心级与常驻级实战保活差异极小。"
+                android:textSize="11.5sp"
+                android:textColor="@color/colorOnSurfaceVariant"
+                android:visibility="gone" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="4dp"
+            android:background="@color/cardDivider" />
+
+        <LinearLayout
+            android:id="@+id/row_wrap_msg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:clickable="true"
+            android:focusable="true">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="10dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="保活消息进程"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/colorOnSurface" />
+
+                    <TextView
+                        android:id="@+id/sum_msg"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="1dp"
+                        android:text="豁免省电限制 · 伪装前台防断连（改进程状态，非档位改 adj）"
+                        android:textSize="11sp"
+                        android:maxLines="2"
+                        android:ellipsize="end"
+                        android:clickable="true"
+                        android:textColor="@color/colorOnSurfaceVariant" />
+                </LinearLayout>
+
+                <io.github.guys222.processkeepalive.SwitchCapsuleView
+                    android:id="@+id/sw_msg"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/det_msg"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:paddingEnd="52dp"
+                android:lineSpacingExtra="2dp"
+                android:text="开启后豁免省电(Doze)与待机限制，后台网络/闹钟不被延迟；主进程将伪装为前台状态，让应用「以为」自己在前台，从而不再主动断开推送长连接。\n\n与「保活档位」的区别：档位是让系统「少杀你」（调整 oom_adj 等优先级，交给内核判断），本项是让应用「别自己断」（改变进程状态并解除省电限制）。两者机制不同、可同时开启、互不覆盖。\n\n注意：消息能否送达最终取决于应用与服务端，保活只负责让进程与网络可用。"
+                android:textSize="11.5sp"
+                android:textColor="@color/colorOnSurfaceVariant"
+                android:visibility="gone" />
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

@@ -1,0 +1,375 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  主页布局 · 方案 14「进度聚焦」
+  结构：appbar → 状态 pill → 渐变大卡(守护中 N/N + 存活率) → 进度条集合(3 条) → 已守护应用列表
+  与旧版的差异：去掉 Bento 双小卡与 24h 曲线图，健康度改用进度条量化表达。
+  底部导航属于 activity_main.xml，本次改造不动。
+-->
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:scrollbars="none">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingStart="18dp"
+        android:paddingEnd="18dp"
+        android:paddingTop="4dp"
+        android:paddingBottom="18dp">
+
+        <!-- ===== Appbar（标题 + 副标题 + 圆形主题按钮）===== -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="bottom"
+            android:paddingTop="8dp"
+            android:paddingBottom="14dp">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="进程保活"
+                    android:textSize="26sp"
+                    android:textStyle="bold"
+                    android:letterSpacing="0.01"
+                    android:textColor="@color/colorOnSurface" />
+
+                <TextView
+                    android:id="@+id/appbar_sub"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:text="ProcessKeepAlive"
+                    android:textSize="12.5sp"
+                    android:textColor="@color/colorOnSurfaceVariant" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/btn_theme"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:gravity="center"
+                android:textSize="19sp"
+                android:text="🌙"
+                android:textColor="@color/colorOnSurface"
+                android:background="@drawable/bg_theme_btn"
+                android:clickable="true"
+                android:focusable="true"
+                android:contentDescription="切换深/浅色" />
+        </LinearLayout>
+
+        <!-- ===== 激活状态 pill（半透明底色 + 同色描边 + 圆点，底色由代码定）===== -->
+        <LinearLayout
+            android:id="@+id/status_pill"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:paddingTop="3dp"
+            android:paddingBottom="3dp"
+            android:layout_marginBottom="13dp"
+            android:background="@drawable/bg_pill">
+
+            <View
+                android:id="@+id/status_dot"
+                android:layout_width="7dp"
+                android:layout_height="7dp"
+                android:background="@drawable/bg_dot" />
+
+            <TextView
+                android:id="@+id/status_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:text="检测中…"
+                android:textSize="11sp"
+                android:textStyle="bold"
+                android:textColor="@color/colorOk" />
+        </LinearLayout>
+
+        <!-- ===== 渐变大卡 · 守护中（预览稿 .k14 .big，135° #2563eb → #22d3ee）===== -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp"
+            android:paddingTop="14dp"
+            android:paddingBottom="14dp"
+            android:layout_marginBottom="12dp"
+            android:background="@drawable/bg_hero">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="守护中 / RUNNING"
+                android:textSize="10.5sp"
+                android:textStyle="bold"
+                android:alpha="0.9"
+                android:letterSpacing="0.02"
+                android:textColor="@color/heroTitle" />
+
+            <TextView
+                android:id="@+id/b_running"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:text="0 / 0"
+                android:textSize="34sp"
+                android:textStyle="bold"
+                android:letterSpacing="-0.02"
+                android:textColor="@color/heroValue" />
+
+            <TextView
+                android:id="@+id/hero_small"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="模块已激活 · 存活率 —"
+                android:textSize="10.5sp"
+                android:alpha="0.9"
+                android:textColor="@color/heroTitle" />
+        </LinearLayout>
+
+        <!-- ===== 进度条集合（预览稿 .k14 .bars）===== -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="14dp"
+            android:layout_marginBottom="12dp"
+            android:background="@drawable/bg_bars">
+
+            <!-- ① 24h 存活率 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginBottom="12dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="6dp">
+
+                    <!-- ★ 056：加 id 便于开机未满 1 小时时改写为「满 1 小时后统计」 -->
+                    <TextView
+                        android:id="@+id/p_bar1_label"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="24h 存活率"
+                        android:textSize="10.5sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/colorOnSurfaceVariant" />
+
+                    <TextView
+                        android:id="@+id/p_bar1_val"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="—"
+                        android:textSize="10.5sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/colorOnSurface" />
+                </LinearLayout>
+
+                <FrameLayout
+                    android:id="@+id/p_bar1_track"
+                    android:layout_width="match_parent"
+                    android:layout_height="8dp"
+                    android:background="@drawable/bg_progress_track">
+
+                    <View
+                        android:id="@+id/p_bar1_fill"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/bg_progress_fill" />
+                </FrameLayout>
+            </LinearLayout>
+
+            <!-- ② 最长连续存活 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginBottom="12dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="6dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="最长连续存活"
+                        android:textSize="10.5sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/colorOnSurfaceVariant" />
+
+                    <TextView
+                        android:id="@+id/p_bar2_val"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="—"
+                        android:textSize="10.5sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/colorOnSurface" />
+                </LinearLayout>
+
+                <FrameLayout
+                    android:id="@+id/p_bar2_track"
+                    android:layout_width="match_parent"
+                    android:layout_height="8dp"
+                    android:background="@drawable/bg_progress_track">
+
+                    <View
+                        android:id="@+id/p_bar2_fill"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/bg_progress_fill" />
+                </FrameLayout>
+            </LinearLayout>
+
+            <!-- ③ 本次开机守护 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="6dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="本次开机守护"
+                        android:textSize="10.5sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/colorOnSurfaceVariant" />
+
+                    <TextView
+                        android:id="@+id/p_bar3_val"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="—"
+                        android:textSize="10.5sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/colorOnSurface" />
+                </LinearLayout>
+
+                <FrameLayout
+                    android:id="@+id/p_bar3_track"
+                    android:layout_width="match_parent"
+                    android:layout_height="8dp"
+                    android:background="@drawable/bg_progress_track">
+
+                    <View
+                        android:id="@+id/p_bar3_fill"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/bg_progress_fill" />
+                </FrameLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- ===== 已守护应用（预览稿 .k14 .sech + .row 列表）===== -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:layout_marginBottom="8dp"
+            android:text="/// 已守护应用"
+            android:textSize="11.5sp"
+            android:textStyle="bold"
+            android:letterSpacing="0.05"
+            android:textColor="@color/colorOnSurfaceVariant" />
+
+        <LinearLayout
+            android:id="@+id/home_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+
+        <!-- ===== 守护事件时间线（预览稿 .k14 .sech + .row 列表，倒序展示）===== -->
+        <!-- 标题行：左「/// 守护事件」，右「⟳」刷新按钮（跟标题走，不再随滚动被顶栏盖住） -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:layout_marginBottom="8dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="2dp"
+                android:text="/// 守护事件"
+                android:textSize="11.5sp"
+                android:textStyle="bold"
+                android:letterSpacing="0.05"
+                android:textColor="@color/colorOnSurfaceVariant" />
+
+            <!-- 文字 + 图标放在同一个按钮里整体旋转（点一下「刷新 ⟳」整块转一圈） -->
+            <LinearLayout
+                android:id="@+id/btn_event_refresh"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:paddingStart="8dp"
+                android:paddingEnd="2dp"
+                android:paddingTop="3dp"
+                android:paddingBottom="3dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:contentDescription="刷新守护事件">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="刷新"
+                    android:textSize="11.5sp"
+                    android:textColor="@color/colorPrimary2" />
+
+                <!-- ★ 059 P2：去掉无引用的 @+id/ic_event_refresh。
+                     它只是「刷新 ⟳」里的箭头字符，视觉保留；056 改成整个按钮一起旋转后，
+                     代码不再单独引用这个子 View（旋转作用在父容器 btn_event_refresh 上）。 -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="3dp"
+                    android:text="⟳"
+                    android:textSize="13sp"
+                    android:includeFontPadding="false"
+                    android:textColor="@color/colorPrimary2" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/home_timeline"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+    </LinearLayout>
+</ScrollView>

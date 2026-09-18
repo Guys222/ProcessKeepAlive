@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 预览稿 .search：radius 14，- card 底 + 1px - line -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="@color/colorSurface" />
+    <stroke
+        android:width="1dp"
+        android:color="@color/colorOutline" />
+    <corners android:radius="14dp" />
+</shape>

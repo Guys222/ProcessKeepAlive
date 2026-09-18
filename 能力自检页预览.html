@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>能力自检详情页 · 设计预览</title>
+<style>
+  :root{
+    --bg:#f4f6fb; --surface:#ffffff; --surfaceVariant:#eef2f9; --outline:#dfe6f2;
+    --onSurface:#101828; --onSurfaceVariant:#5b6780;
+    --primary:#2563eb; --ok:#1faa5b; --danger:#dc2626;
+    --cardDivider:#e6ebf5;
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  body{margin:0;background:#e9edf5;font-family:-apple-system,"PingFang SC","Microsoft YaHei",system-ui,sans-serif;
+       display:flex;flex-wrap:wrap;gap:32px;justify-content:center;padding:34px 18px;}
+  .stage{display:flex;flex-direction:column;align-items:center;gap:12px}
+  .stage h2{font-size:13px;font-weight:600;color:#5b6780;margin:0;letter-spacing:.04em}
+  .phone{width:390px;height:790px;background:var(--bg);border-radius:30px;overflow:hidden;
+         box-shadow:0 18px 50px rgba(16,24,40,.22);border:8px solid #101828;display:flex;flex-direction:column}
+  .scroll{overflow-y:auto;flex:1;padding:10px 18px 24px}
+  .scroll::-webkit-scrollbar{width:0}
+
+  /* 顶栏 */
+  .top{display:flex;align-items:center;gap:12px;padding-bottom:14px}
+  .back{width:34px;height:34px;border-radius:50%;background:var(--surface);border:1px solid var(--outline);
+        display:flex;align-items:center;justify-content:center;color:var(--onSurfaceVariant);font-size:17px;flex:0 0 34px}
+  .top h1{font-size:20px;font-weight:700;color:var(--onSurface);margin:0;flex:1}
+  .recheck{font-size:12.5px;font-weight:700;color:var(--primary);background:var(--surfaceVariant);
+           border:1px solid var(--outline);border-radius:20px;padding:7px 14px;white-space:nowrap}
+
+  /* 概览卡 */
+  .card{background:var(--surface);border:1px solid var(--outline);border-radius:14px;padding:15px;margin-bottom:14px}
+  .sum-title{font-size:16px;font-weight:700;color:var(--ok)}
+  .sum-title.bad{color:var(--danger)}
+  .sum-desc{font-size:12.5px;color:var(--onSurfaceVariant);margin-top:5px;line-height:1.65}
+
+  .sec{font-size:13px;font-weight:700;color:var(--onSurfaceVariant);letter-spacing:.03em;margin:0 0 10px 2px}
+
+  /* 单项 */
+  .item{background:var(--surface);border:1px solid var(--outline);border-radius:14px;
+        padding:12px 14px;margin-bottom:9px}
+  .head{display:flex;align-items:center;gap:11px}
+  .badge{width:26px;height:26px;border-radius:9px;display:flex;align-items:center;justify-content:center;
+         font-size:13px;flex:0 0 26px;font-weight:700}
+  .badge.ok{color:var(--ok);background:rgba(31,170,91,.12)}
+  .badge.no{color:var(--danger);background:rgba(220,38,38,.12)}
+  .meta{flex:1;min-width:0}
+  .nm{font-size:14px;font-weight:700;color:var(--onSurface)}
+  .dt{font-size:11.5px;color:var(--onSurfaceVariant);margin-top:3px}
+  .dt.bad{color:var(--danger)}
+  .arrow{color:var(--onSurfaceVariant);font-size:15px;flex:0 0 auto}
+  .expand{margin-top:9px;margin-left:37px;font-family:ui-monospace,Menlo,Consolas,monospace;
+          font-size:11.5px;line-height:1.7;color:var(--onSurfaceVariant);background:var(--surfaceVariant);
+          border:1px solid var(--outline);border-radius:20px;padding:8px 10px;white-space:pre-wrap}
+  .expand.bad{color:var(--danger)}
+
+  .foot{font-size:12px;color:var(--onSurfaceVariant);line-height:1.65;margin-top:16px}
+
+  /* 设置页入口行 */
+  .setcard{background:var(--surface);border:1px solid var(--outline);border-radius:14px;
+           padding:6px 15px;margin-bottom:13px}
+  .srow{display:flex;align-items:center;gap:8px;padding:9px 0}
+  .srow .tx{flex:1}
+  .srow .n{font-size:14.5px;font-weight:700;color:var(--onSurface)}
+  .srow .d{font-size:11.5px;color:var(--onSurfaceVariant);margin-top:2px}
+  .srow .d.ok{color:var(--ok)}
+  .srow .d.no{color:var(--danger)}
+  .chev{color:var(--onSurfaceVariant);font-size:15px}
+  .hdr{font-size:26px;font-weight:700;color:var(--onSurface);padding:12px 0 14px}
+</style>
+</head>
+<body>
+
+<!-- 1. 能力自检详情页 · 有未生效项 -->
+<div class="stage">
+  <h2>① 能力自检详情页 — 存在未生效项</h2>
+  <div class="phone">
+    <div class="scroll">
+      <div class="top">
+        <div class="back">‹</div>
+        <h1>能力自检</h1>
+        <div class="recheck">重新检测</div>
+      </div>
+
+      <div class="card">
+        <div class="sum-title bad">10 / 11 项能力已生效</div>
+        <div class="sum-desc">红色项在本次开机的系统版本上未找到对应入口（多为系统改版改名所致），点击该项可查看尝试过的候选名称；这些项不生效不会影响其余功能。</div>
+      </div>
+
+      <div class="sec">逐项明细</div>
+
+      <div class="item">
+        <div class="head">
+          <div class="badge ok">✓</div>
+          <div class="meta">
+            <div class="nm">降低目标应用的 OOM 优先级（档位生效关键）</div>
+            <div class="dt">已生效 · 命中 applyOomAdjLSP</div>
+          </div>
+          <div class="arrow">⌄</div>
+        </div>
+      </div>
+
+      <div class="item">
+        <div class="head">
+          <div class="badge no">✕</div>
+          <div class="meta">
+            <div class="nm">消息保活：免于 Doze 省电限制</div>
+            <div class="dt bad">未生效 · 本机系统未找到该方法（目标类 DeviceIdleController）</div>
+          </div>
+          <div class="arrow">›</div>
+        </div>
+        <div class="expand bad">能力标识：dozeWhitelist
+目标类　：DeviceIdleController
+
+可能原因：
+· 系统版本升级后方法被改名或移除
+· 厂商 ROM 改写了该类实现
+· 模块作用域未勾选「系统框架」
+处理建议：更新模块到最新版本；若仍如此，可在反馈时附上本页截图。</div>
+      </div>
+
+      <div class="item">
+        <div class="head">
+          <div class="badge ok">✓</div>
+          <div class="meta">
+            <div class="nm">消息保活：避免 App Standby 节流</div>
+            <div class="dt">已生效 · 命中 getAppStandbyBucketLSP（2 个重载）</div>
+          </div>
+          <div class="arrow">⌄</div>
+        </div>
+      </div>
+
+      <div class="item">
+        <div class="head">
+          <div class="badge ok">✓</div>
+          <div class="meta">
+            <div class="nm">强力模式：拦截进程强杀</div>
+            <div class="dt">已生效 · 命中 killLocked</div>
+          </div>
+          <div class="arrow">⌄</div>
+        </div>
+      </div>
+
+      <div class="item">
+        <div class="head">
+          <div class="badge ok">✓</div>
+          <div class="meta">
+            <div class="nm">阻止系统「强制停止」目标应用</div>
+            <div class="dt">已生效 · 命中 forceStopPackageLSP</div>
+          </div>
+          <div class="arrow">⌄</div>
+        </div>
+      </div>
+
+      <div class="foot">说明：本模块依赖按名挂载系统私有方法实现保活，系统版本升级或厂商改版都可能导致个别方法改名，从而让对应能力静默失效。此处如实列出每项能力的挂载结局，未生效项不影响其余功能。</div>
+    </div>
+  </div>
+</div>
+
+<!-- 2. 全部生效 -->
+<div class="stage">
+  <h2>② 全部生效时的概览卡</h2>
+  <div class="phone">
+    <div class="scroll">
+      <div class="top">
+        <div class="back">‹</div>
+        <h1>能力自检</h1>
+        <div class="recheck">重新检测</div>
+      </div>
+      <div class="card">
+        <div class="sum-title">11 / 11 项能力已生效</div>
+        <div class="sum-desc">全部保活能力均已在本次开机挂载成功。</div>
+      </div>
+      <div class="sec">逐项明细</div>
+      <div class="item">
+        <div class="head">
+          <div class="badge ok">✓</div>
+          <div class="meta">
+            <div class="nm">降低目标应用的 OOM 优先级（档位生效关键）</div>
+            <div class="dt">已生效 · 命中 applyOomAdjLSP</div>
+          </div>
+          <div class="arrow">⌄</div>
+        </div>
+        <div class="expand">能力标识：applyOomAdjLocked
+目标类　：OomAdjuster
+命中方法：applyOomAdjLSP
+重载数量：1 个</div>
+      </div>
+      <div class="item">
+        <div class="head">
+          <div class="badge ok">✓</div>
+          <div class="meta">
+            <div class="nm">开机自启动</div>
+            <div class="dt">已生效 · 命中 finishBooting</div>
+          </div>
+          <div class="arrow">⌄</div>
+        </div>
+      </div>
+      <div class="item">
+        <div class="head">
+          <div class="badge ok">✓</div>
+          <div class="meta">
+            <div class="nm">进程死亡时记录并准备恢复</div>
+            <div class="dt">已生效 · 命中 appDiedLSP</div>
+          </div>
+          <div class="arrow">⌄</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 3. 设置页入口 -->
+<div class="stage">
+  <h2>③ 设置页新增的「诊断」分区</h2>
+  <div class="phone">
+    <div class="scroll">
+      <div class="hdr">设置</div>
+      <div class="sec">诊断</div>
+      <div class="setcard">
+        <div class="srow">
+          <div class="tx">
+            <div class="n">能力自检</div>
+            <div class="d no">10 / 11 项生效 · 点击查看未生效项</div>
+          </div>
+          <div class="chev">›</div>
+        </div>
+      </div>
+      <div class="sec">关于</div>
+      <div class="setcard">
+        <div class="srow"><div class="tx"><div class="n">作者</div></div><div class="chev">↗</div></div>
+        <div style="height:1px;background:var(--cardDivider)"></div>
+        <div class="srow"><div class="tx"><div class="n">Q 群</div></div><div class="chev">↗</div></div>
+        <div style="height:1px;background:var(--cardDivider)"></div>
+        <div class="srow"><div class="tx"><div class="n">仓库</div></div><div class="chev">↗</div></div>
+        <div style="height:1px;background:var(--cardDivider)"></div>
+        <div class="srow"><div class="tx"><div class="n" style="font-weight:400;color:#5b6780">版本 v3.3.0</div></div></div>
+      </div>
+      <div class="sec">诊断（全部正常时）</div>
+      <div class="setcard">
+        <div class="srow">
+          <div class="tx">
+            <div class="n">能力自检</div>
+            <div class="d ok">11 / 11 项生效 · 全部正常</div>
+          </div>
+          <div class="chev">›</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

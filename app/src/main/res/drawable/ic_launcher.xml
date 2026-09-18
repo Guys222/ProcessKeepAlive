@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="96"
+    android:viewportHeight="96">
+
+    <!-- 圆形背景：方案 14 蓝青体系主色 colorPrimary #2563eb -->
+    <path
+        android:fillColor="#2563eb"
+        android:pathData="M48,48m-46,0a46,46 0,1 1,92 0a46,46 0,1 1,-92 0" />
+
+    <!-- 盾牌 -->
+    <path
+        android:fillColor="#ffffff"
+        android:fillAlpha="0.16"
+        android:strokeColor="#ffffff"
+        android:strokeWidth="5"
+        android:strokeLineJoin="round"
+        android:pathData="M48,14 L80,27 V48 C80,68 64,80 48,86 C32,80 16,68 16,48 V27 Z" />
+
+    <!-- 对勾 -->
+    <path
+        android:fillColor="#00000000"
+        android:strokeColor="#ffffff"
+        android:strokeWidth="8"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:pathData="M36,49 L45,59 L63,37" />
+</vector>

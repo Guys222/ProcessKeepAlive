@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 预览稿 .chartwrap .targets .chip.active：border-color accent + 1px 外描边 -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="@color/targetChipBg" />
+    <stroke
+        android:width="1.5dp"
+        android:color="@color/colorPrimary" />
+    <corners android:radius="20dp" />
+</shape>

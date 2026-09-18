@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 进程页 D 版「守护中」绿色状态卡：每个被守护的应用一张，钉住状态一眼可见 -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="13dp"
+    android:background="@drawable/bg_guard_card"
+    android:clickable="true"
+    android:focusable="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+        <ImageView
+            android:id="@+id/gc_icon"
+            android:layout_width="38dp"
+            android:layout_height="38dp"
+            android:contentDescription="icon" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="11dp"
+            android:layout_marginEnd="8dp"
+            android:orientation="vertical">
+
+            <!--
+              ★ 049：标题行由 wrap_content 改为 match_parent + 名字占 weight=1。
+              原来整行 wrap_content、名字也是 wrap_content，宽度不够时 LinearLayout
+              会先压名字（它可压缩）再压徽章，实测「核心级 / 常驻级」徽章被挤到只剩半个字
+              甚至整体被推出可视区。现在名字吃掉剩余空间、徽章固定 wrap_content，
+              徽章永远完整，名字最多换 2 行（约 40 字符）后省略。
+            -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:id="@+id/gc_name"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:maxLines="2"
+                    android:ellipsize="end"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/colorOnSurface" />
+
+                <TextView
+                    android:id="@+id/gc_badge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="7dp"
+                    android:paddingStart="7dp"
+                    android:paddingEnd="7dp"
+                    android:paddingTop="2dp"
+                    android:paddingBottom="2dp"
+                    android:textSize="10sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/colorOk"
+                    android:background="@drawable/bg_pill" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/gc_meta"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:maxLines="2"
+                android:lineSpacingExtra="1dp"
+                android:ellipsize="end"
+                android:textSize="11sp"
+                android:textColor="@color/colorOnSurfaceVariant" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/gc_mem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12.5sp"
+            android:textStyle="bold"
+            android:textColor="@color/colorOnSurface" />
+    </LinearLayout>
+
+    <!-- 进程明细 chips：由代码动态填充（每个被守护进程一个小标签） -->
+    <LinearLayout
+        android:id="@+id/gc_chips"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="vertical" />
+</LinearLayout>

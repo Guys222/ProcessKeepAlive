@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 预览稿 .chip.active：background rgba(180,107,255,.2) + border-color var(- accent) -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="@color/chipActiveBg" />
+    <stroke
+        android:width="1dp"
+        android:color="@color/colorPrimary" />
+    <corners android:radius="20dp" />
+</shape>

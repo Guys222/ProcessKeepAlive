@@ -1,0 +1,835 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  设置页 · 对齐 preview.html #tab-settings
+  分区：外观 / 保活能力 / 优先级档位 / 关于
+  行结构 = .row{display:flex;align-items:center;justify-content:space-between}
+  .meta .n{14.5px;600} / .meta .d{11.5px;muted}
+-->
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:scrollbars="none">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="18dp"
+        android:paddingEnd="18dp"
+        android:paddingTop="4dp"
+        android:paddingBottom="18dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="12dp"
+            android:paddingBottom="14dp"
+            android:text="设置"
+            android:textSize="26sp"
+            android:textStyle="bold"
+            android:textColor="@color/colorOnSurface" />
+
+        <!-- ===== 外观 ===== -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:layout_marginBottom="10dp"
+            android:text="外观"
+            android:textSize="13sp"
+            android:textStyle="bold"
+            android:letterSpacing="0.03"
+            android:textColor="@color/colorOnSurfaceVariant" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:padding="15dp"
+            android:layout_marginBottom="13dp"
+            android:background="@drawable/bg_card">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginEnd="8dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="深色 / 浅色主题"
+                    android:textSize="14.5sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/colorOnSurface" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:text="跟随系统或手动切换"
+                    android:textSize="11.5sp"
+                    android:textColor="@color/colorOnSurfaceVariant" />
+            </LinearLayout>
+
+            <io.github.guys222.processkeepalive.SwitchCapsuleView
+                android:id="@+id/switch_dark"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <!-- ===== 保活能力 ===== -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:layout_marginBottom="10dp"
+            android:text="保活能力"
+            android:textSize="13sp"
+            android:textStyle="bold"
+            android:letterSpacing="0.03"
+            android:textColor="@color/colorOnSurfaceVariant" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp"
+            android:layout_marginBottom="13dp"
+            android:background="@drawable/bg_card">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:paddingTop="4dp"
+                android:paddingBottom="4dp">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="8dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="启用模块"
+                        android:textSize="14.5sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/colorOnSurface" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:text="总开关，关闭后两道防线、托底保活底座（常驻级/核心级）与开机种子全部暂停"
+                        android:textSize="11.5sp"
+                        android:textColor="@color/colorOnSurfaceVariant" />
+                </LinearLayout>
+
+                <io.github.guys222.processkeepalive.SwitchCapsuleView
+                    android:id="@+id/switch_master"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="11dp"
+                android:layout_marginBottom="11dp"
+                android:background="@color/cardDivider" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:paddingTop="4dp"
+                android:paddingBottom="4dp">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="8dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="强力模式 · 预防被杀"
+                        android:textSize="14.5sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/colorOnSurface" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:text="全局总闸：打开后对所有保活目标都拦截最底层的杀死入口（ProcessRecord.kill），是最彻底的预防。负责「不被杀」，不是被杀后拉起。单个应用可在应用配置里单独开启。"
+                        android:textSize="11.5sp"
+                        android:textColor="@color/colorOnSurfaceVariant" />
+                </LinearLayout>
+
+                <io.github.guys222.processkeepalive.SwitchCapsuleView
+                    android:id="@+id/switch_aggressive"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="11dp"
+                android:layout_marginBottom="11dp"
+                android:background="@color/cardDivider" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:paddingTop="4dp"
+                android:paddingBottom="4dp">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="8dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="开机拉起（仅开机种子一次）"
+                        android:textSize="14.5sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/colorOnSurface" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:text="【开机种子 · 仅此一项】本开关只控制「重启后第一次把目标拉起来」，由 system_server 重启时触发一次。\n两道防线（死后 ~1.5s 死亡回调补拉 + 20s 轮询兜底）由顶部「启用模块」总开关管辖，与本开关无关——关了它也照样运行。\n注意：开启「托底保活」（应用配置里的常驻级/核心级）的目标需进程先存在才能被打标，开机时的首次拉起由第二防线（归总开关）兜底完成，同样不归本开关。走服务/Provider 通道，不弹界面。"
+                        android:textSize="11.5sp"
+                        android:textColor="@color/colorOnSurfaceVariant" />
+                </LinearLayout>
+
+                <io.github.guys222.processkeepalive.SwitchCapsuleView
+                    android:id="@+id/switch_auto_start"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- ===== 优先级档位（预览稿 .seg：card2 底 + 4dp 内边距 + 激活项紫粉渐变）===== -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:layout_marginBottom="10dp"
+            android:text="默认保活档位"
+            android:textSize="13sp"
+            android:textStyle="bold"
+            android:letterSpacing="0.03"
+            android:textColor="@color/colorOnSurfaceVariant" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="15dp"
+            android:layout_marginBottom="13dp"
+            android:background="@drawable/bg_card">
+
+            <!-- ★ 059 P2：去掉无引用的 @+id/prio_seg（SettingsFragment 走 styleSeg() 直接遍历子项） -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="4dp"
+                android:background="@drawable/bg_seg">
+
+                <TextView
+                    android:id="@+id/prio_conservative"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp"
+                    android:text="保守"
+                    android:textSize="13sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/colorOnSurfaceVariant"
+                    android:clickable="true"
+                    android:focusable="true" />
+
+                <TextView
+                    android:id="@+id/prio_balanced"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="4dp"
+                    android:gravity="center"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp"
+                    android:text="均衡"
+                    android:textSize="13sp"
+                    android:textStyle="bold"
+                    android:textColor="#ffffff"
+                    android:background="@drawable/bg_seg_active"
+                    android:clickable="true"
+                    android:focusable="true" />
+
+                <TextView
+                    android:id="@+id/prio_aggressive"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="4dp"
+                    android:gravity="center"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp"
+                    android:text="激进"
+                    android:textSize="13sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/colorOnSurfaceVariant"
+                    android:clickable="true"
+                    android:focusable="true" />
+            </LinearLayout>
+
+            <!-- 每个档位一行：档位名 / adj 值 / 系统意愿，由 buildPrioLegend() 动态填充。
+                 当前档位实时高亮，所以这里不再单独渲染「当前档位」那一行，避免重复。 -->
+            <LinearLayout
+                android:id="@+id/prio_legend"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="12dp" />
+
+            <TextView
+                android:id="@+id/prio_hint"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:lineSpacingExtra="3dp"
+                android:text="新勾选的应用默认采用此档位；已勾选的应用可在「应用」页点进去单独调整"
+                android:textSize="12sp"
+                android:textColor="@color/colorOnSurfaceVariant" />
+        </LinearLayout>
+
+        <!-- ===== 常驻显示 ===== -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:layout_marginBottom="10dp"
+            android:text="常驻显示"
+            android:textSize="13sp"
+            android:textStyle="bold"
+            android:letterSpacing="0.03"
+            android:textColor="@color/colorOnSurfaceVariant" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp"
+            android:paddingTop="6dp"
+            android:paddingBottom="6dp"
+            android:layout_marginBottom="13dp"
+            android:background="@drawable/bg_card">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:paddingTop="4dp"
+                android:paddingBottom="4dp">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="8dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="常驻通知"
+                        android:textSize="14.5sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/colorOnSurface" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:lineSpacingExtra="2dp"
+                        android:text="通知栏常驻显示「守护中 N/M」；开着它桌面小部件才会每 30 秒刷新"
+                        android:textSize="11.5sp"
+                        android:textColor="@color/colorOnSurfaceVariant" />
+                </LinearLayout>
+
+                <io.github.guys222.processkeepalive.SwitchCapsuleView
+                    android:id="@+id/switch_notify"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="-5dp"
+            android:layout_marginStart="2dp"
+            android:layout_marginEnd="2dp"
+            android:lineSpacingExtra="3dp"
+            android:text="桌面小部件：长按桌面 → 小部件 → 找到 ProcessKeepAlive 拖到桌面。通知没开时也照样能用，只是刷新慢一些。"
+            android:textSize="12sp"
+            android:textColor="@color/colorOnSurfaceVariant" />
+
+        <!-- ===== 备份与恢复 ===== -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:layout_marginBottom="10dp"
+            android:text="备份与恢复"
+            android:textSize="13sp"
+            android:textStyle="bold"
+            android:letterSpacing="0.03"
+            android:textColor="@color/colorOnSurfaceVariant" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp"
+            android:paddingTop="6dp"
+            android:paddingBottom="6dp"
+            android:layout_marginBottom="13dp"
+            android:background="@drawable/bg_card">
+
+            <!-- 导出：点击存成 JSON 文件，长按复制文本 -->
+            <LinearLayout
+                android:id="@+id/row_export"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:paddingTop="11dp"
+                android:paddingBottom="11dp"
+                android:background="@drawable/bg_row_ripple"
+                android:clickable="true"
+                android:focusable="true">
+
+                <TextView
+                    android:layout_width="46dp"
+                    android:layout_height="wrap_content"
+                    android:text="备份"
+                    android:textSize="12.5sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/colorOnSurface" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="导出配置到文件"
+                        android:textSize="12.5sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/colorOnSurface"
+                        android:maxLines="1"
+                        android:ellipsize="end" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:lineSpacingExtra="2dp"
+                        android:text="保活清单 + 全局开关存成 JSON；长按改为复制到剪贴板"
+                        android:textSize="11.5sp"
+                        android:textColor="@color/colorOnSurfaceVariant" />
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="14dp"
+                    android:layout_height="14dp"
+                    android:layout_marginStart="8dp"
+                    android:src="@drawable/ic_chevron"
+                    app:tint="@color/colorOnSurfaceVariant"
+                    android:contentDescription="导出" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/cardDivider" />
+
+            <!-- 恢复：点击读 JSON 文件，长按改为读剪贴板 -->
+            <LinearLayout
+                android:id="@+id/row_import"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:paddingTop="11dp"
+                android:paddingBottom="11dp"
+                android:background="@drawable/bg_row_ripple"
+                android:clickable="true"
+                android:focusable="true">
+
+                <TextView
+                    android:layout_width="46dp"
+                    android:layout_height="wrap_content"
+                    android:text="恢复"
+                    android:textSize="12.5sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/colorOnSurface" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="从文件恢复配置"
+                        android:textSize="12.5sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/colorOnSurface"
+                        android:maxLines="1"
+                        android:ellipsize="end" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:lineSpacingExtra="2dp"
+                        android:text="选择备份的 JSON；长按改为从剪贴板读取"
+                        android:textSize="11.5sp"
+                        android:textColor="@color/colorOnSurfaceVariant" />
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="14dp"
+                    android:layout_height="14dp"
+                    android:layout_marginStart="8dp"
+                    android:src="@drawable/ic_chevron"
+                    app:tint="@color/colorOnSurfaceVariant"
+                    android:contentDescription="恢复" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- ===== 诊断 ===== -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:layout_marginBottom="10dp"
+            android:text="诊断"
+            android:textSize="13sp"
+            android:textStyle="bold"
+            android:letterSpacing="0.03"
+            android:textColor="@color/colorOnSurfaceVariant" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp"
+            android:paddingTop="6dp"
+            android:paddingBottom="6dp"
+            android:layout_marginBottom="13dp"
+            android:background="@drawable/bg_card">
+
+            <!-- 能力自检：跳独立详情页（逐项 ✅/❌ + 命中方法名 + 排查提示） -->
+            <LinearLayout
+                android:id="@+id/row_capability"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:paddingTop="9dp"
+                android:paddingBottom="9dp"
+                android:background="@drawable/bg_row_ripple"
+                android:clickable="true"
+                android:focusable="true">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="8dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="能力自检"
+                        android:textSize="14.5sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/colorOnSurface" />
+
+                    <TextView
+                        android:id="@+id/capability_summary"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:text="查看各保活能力在本机的生效情况"
+                        android:textSize="11.5sp"
+                        android:textColor="@color/colorOnSurfaceVariant" />
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:src="@drawable/ic_chevron"
+                    android:rotation="270"
+                    app:tint="@color/colorOnSurfaceVariant"
+                    android:contentDescription="进入" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- ===== 关于（预览稿 .card.about：整段 muted 文字 + 链接色）===== -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:layout_marginBottom="10dp"
+            android:text="关于"
+            android:textSize="13sp"
+            android:textStyle="bold"
+            android:letterSpacing="0.03"
+            android:textColor="@color/colorOnSurfaceVariant" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp"
+            android:paddingTop="6dp"
+            android:paddingBottom="6dp"
+            android:background="@drawable/bg_card">
+
+            <!-- 作者：整行点击跳 GitHub 主页，长按复制 -->
+            <LinearLayout
+                android:id="@+id/row_author"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:paddingTop="9dp"
+                android:paddingBottom="9dp"
+                android:background="@drawable/bg_row_ripple"
+                android:clickable="true"
+                android:focusable="true">
+
+                <TextView
+                    android:layout_width="46dp"
+                    android:layout_height="wrap_content"
+                    android:text="作者"
+                    android:textSize="12.5sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/colorOnSurface" />
+
+                <TextView
+                    android:id="@+id/author_value"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@Guys222"
+                    android:textSize="12.5sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/colorPrimary"
+                    android:maxLines="1"
+                    android:ellipsize="end" />
+
+                <ImageView
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_marginStart="8dp"
+                    android:src="@drawable/ic_open_external"
+                    app:tint="@color/colorOnSurfaceVariant"
+                    android:contentDescription="打开" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/cardDivider" />
+
+            <!-- QQ 反馈群：整行点击跳群链接，长按复制群号 -->
+            <LinearLayout
+                android:id="@+id/row_qq"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:paddingTop="9dp"
+                android:paddingBottom="9dp"
+                android:background="@drawable/bg_row_ripple"
+                android:clickable="true"
+                android:focusable="true">
+
+                <!-- 「Q 群」：Q 是半角字母，中间补一个半角空格凑满两个汉字的视觉宽度，
+                     这样四行标签（作者 / Q 群 / 仓库 / 版本）右边缘齐平 -->
+                <TextView
+                    android:layout_width="46dp"
+                    android:layout_height="wrap_content"
+                    android:text="Q 群"
+                    android:textSize="12.5sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/colorOnSurface" />
+
+                <TextView
+                    android:id="@+id/qq_value"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="687457195"
+                    android:textSize="12.5sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/colorPrimary"
+                    android:maxLines="1"
+                    android:ellipsize="end" />
+
+                <ImageView
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_marginStart="8dp"
+                    android:src="@drawable/ic_open_external"
+                    app:tint="@color/colorOnSurfaceVariant"
+                    android:contentDescription="打开" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/cardDivider" />
+
+            <!-- 仓库：整行点击跳仓库，长按复制地址 -->
+            <LinearLayout
+                android:id="@+id/row_repo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:paddingTop="9dp"
+                android:paddingBottom="9dp"
+                android:background="@drawable/bg_row_ripple"
+                android:clickable="true"
+                android:focusable="true">
+
+                <TextView
+                    android:layout_width="46dp"
+                    android:layout_height="wrap_content"
+                    android:text="仓库"
+                    android:textSize="12.5sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/colorOnSurface" />
+
+                <TextView
+                    android:id="@+id/repo_value"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Guys222/ProcessKeepAlive"
+                    android:textSize="12.5sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/colorPrimary"
+                    android:maxLines="1"
+                    android:ellipsize="end" />
+
+                <ImageView
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_marginStart="8dp"
+                    android:src="@drawable/ic_open_external"
+                    app:tint="@color/colorOnSurfaceVariant"
+                    android:contentDescription="打开" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/cardDivider" />
+
+            <!-- 版本 + 检查更新：整行点击向 GitHub 查询最新版本；长按复制当前版本号 -->
+            <LinearLayout
+                android:id="@+id/row_version"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:paddingTop="9dp"
+                android:paddingBottom="9dp"
+                android:background="@drawable/bg_row_ripple"
+                android:clickable="true"
+                android:focusable="true">
+
+                <TextView
+                    android:layout_width="46dp"
+                    android:layout_height="wrap_content"
+                    android:text="版本"
+                    android:textSize="12.5sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/colorOnSurface" />
+
+                <TextView
+                    android:id="@+id/version_value"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="1.0"
+                    android:textSize="12.5sp"
+                    android:textColor="@color/colorOnSurfaceVariant" />
+
+                <!-- 检查更新状态：默认提示可点击；点击后显示「检查中… / 已是最新 / 有新版本」 -->
+                <TextView
+                    android:id="@+id/version_check"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="检查更新"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/colorPrimary" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="2dp"
+            android:layout_marginEnd="2dp"
+            android:lineSpacingExtra="3dp"
+            android:text="基于 LSPosed，注入 system_server。仅用于个人设备与自用应用。遇到问题可加群反馈。"
+            android:textSize="12.5sp"
+            android:textColor="@color/colorOnSurfaceVariant" />
+    </LinearLayout>
+</ScrollView>

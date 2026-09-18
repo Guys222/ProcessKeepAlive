@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  方案 14「进度聚焦」· 进度条填充
+  默认色为青（colorPrimary2），实际三色由代码用 setBackgroundTintList 指定：
+  24h 存活率 → 青 / 最长连续存活 → 蓝 / 本次开机守护 → 靛。
+-->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="@color/progressFill" />
+    <corners android:radius="5dp" />
+</shape>

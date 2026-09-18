@@ -1,0 +1,105 @@
+apply plugin: 'com.android.application'
+
+// 从 key.properties 读取签名信息（该文件已被 .gitignore 忽略，不随仓库分发）
+def keyPropsFile = rootProject.file("key.properties")
+def keyProps = new Properties()
+if (keyPropsFile.exists()) {
+    keyProps.load(new FileInputStream(keyPropsFile))
+}
+// 只有 key.properties 与其指向的 keystore 同时存在时才启用正式签名。
+// 缺任意一个就退回未签名，并在构建日志里说明原因，避免 validateSigningRelease 报出难懂的错误。
+def keyStoreFile = keyPropsFile.exists() && keyProps['storeFile'] ?
+        rootProject.file(keyProps['storeFile']) : null
+def useReleaseSigning = keyStoreFile != null && keyStoreFile.exists()
+if (keyPropsFile.exists() && !useReleaseSigning) {
+    logger.warn("[签名] 已找到 key.properties，但 keystore 不存在：${keyStoreFile}，" +
+            "本次将构建未签名包（请确认 storeFile 路径，或补充 keystore 后再构建正式包）")
+}
+
+android {
+    namespace 'io.github.guys222.processkeepalive'
+    compileSdk 34
+
+    buildFeatures {
+        buildConfig true
+    }
+
+    defaultConfig {
+        applicationId "io.github.guys222.processkeepalive"
+        minSdk 26
+        targetSdk 34
+        // 版本纪律：版本号只在【正式发布】时递增；日常 debug 构建不改版本号，
+        // 靠输出文件名里的递增序号区分先后（见 build-debug.sh）。
+        // ★ 但 versionCode 必须跟着构建序号走 —— 这里踩过一个大坑：
+        //   原先它恒为 34，从 010 到 017 八个包的 versionCode 完全相同。
+        //   Android 遇到「同 versionCode + 同签名」会判定为无需更新，不少安装器
+        //   （含 MT 管理器）直接弹「安装成功」而不替换 APK。
+        //   表现就是：明明装了最新版，界面永远是老 UI，且系统里查版本号一直是 34。
+        //   现在 debug 构建用 3000+序号（避开 34 这类正式号），每次构建都是真升级。
+        versionCode(Integer.parseInt(System.getenv("BUILD_SEQ_CODE") ?: "34"))
+        versionName "3.3.0"
+    }
+
+    signingConfigs {
+        release {
+            if (useReleaseSigning) {
+                storeFile rootProject.file(keyProps['storeFile'])
+                storePassword keyProps['storePassword']
+                keyAlias keyProps['keyAlias']
+                keyPassword keyProps['keyPassword']
+                // 与历史版本一致：v1 + v2 + v3 全开
+                // ★ 实测（AGP 8.2.2）：minSdk 26 时 AGP 会【忽略】enableV1Signing，
+                //   产物只带 v2 + v3 —— 这是 AGP 的有意优化（v1/JAR 签名对
+                //   Android 7.0+ 已无必要）。minSdk 26 = Android 8.0，v2+v3 完全够用，
+                //   不影响任何设备安装。此处保留 true 只是为了表达意图，
+                //   若将来有人看到 apksigner 报 "v1 scheme: false"，不必当成 bug。
+                enableV1Signing true
+                enableV2Signing true
+                enableV3Signing true
+            }
+        }
+    }
+
+    buildTypes {
+        debug {
+            // 只有 versionName 加后缀，applicationId 保持不变 ——
+            // Xposed 模块靠包名被 LSPosed 识别，改包名会导致模块失效需重新勾选。
+            // ★ 把【构建时间戳】烙进 versionName：LSPosed 模块列表读的就是它。
+            //   版本号长期固定 3.3.0，光看版本号分不清新旧，出过「装了 016、
+            //   界面却是 010 的老 UI」这种乌龙——从一堆同名近似的历史包里摸错了文件。
+            //   现在列表直接显示 -debug-20260918-0933，装错一眼可见。
+            //   （原为递增序号 -b017；改用时间戳是为与正式包的版本号命名体系统一。）
+            versionNameSuffix "-debug" + (System.getenv("BUILD_SEQ")
+                    ? "-" + System.getenv("BUILD_SEQ") : "")
+        }
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            // 有 key.properties 且 keystore 在位时用正式签名，否则退回未签名（不再影响 assembleDebug）
+            if (useReleaseSigning) {
+                signingConfig signingConfigs.release
+            }
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+}
+
+dependencies {
+    // 仅编译期需要，运行时由 LSPosed 框架提供
+    compileOnly 'de.robv.android.xposed:api:82'
+    // 新一代 LSPosed（modern API）
+    compileOnly 'io.github.libxposed:api:102.0.0'
+
+    // 新 UI：Material 底部导航 + ViewPager2 + Fragment
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'com.google.android.material:material:1.11.0'
+    implementation 'androidx.viewpager2:viewpager2:1.0.0'
+    implementation 'androidx.fragment:fragment:1.6.2'
+    implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
+    // 周期存活采样（24h 存活率曲线真实数据）
+    implementation 'androidx.work:work-runtime:2.9.0'
+}

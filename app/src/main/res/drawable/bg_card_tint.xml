@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 预览稿 .card.tint：
+     linear-gradient(135deg,rgba(180,107,255,.22),rgba(255,122,195,.18))
+     border-color rgba(180,107,255,.4)
+     底色用 - card，上面叠低透明度紫/粉 -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="@color/colorSurface" />
+            <stroke
+                android:width="1dp"
+                android:color="@color/tintBorder" />
+            <corners android:radius="14dp" />
+        </shape>
+    </item>
+    <item>
+        <shape android:shape="rectangle">
+            <gradient
+                android:angle="315"
+                android:type="linear"
+                android:startColor="@color/tintFrom"
+                android:endColor="@color/tintTo" />
+            <corners android:radius="14dp" />
+        </shape>
+    </item>
+</layer-list>

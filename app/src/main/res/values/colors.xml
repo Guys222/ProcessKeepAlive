@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--
+      浅色主题调色板 · 方案 14「进度聚焦」
+      品牌色由紫粉系切到蓝青系：主色 #2563eb（蓝）+ 辅助 #22d3ee（青）。
+      全部组件都走语义色引用，所以换肤只需改这一张表。
+    -->
+    <color name="colorBg">#f4f6fb</color>
+    <color name="colorSurface">#ffffff</color>
+    <color name="colorSurfaceVariant">#eef2f9</color>
+    <color name="colorOutline">#dfe6f2</color>
+    <color name="colorOnSurface">#101828</color>
+    <color name="colorOnSurfaceVariant">#5b6780</color>
+
+    <!-- 品牌色：蓝 / 青 / 靛（进度条三色即取这三个） -->
+    <color name="colorPrimary">#2563eb</color>
+    <color name="colorPrimary2">#22d3ee</color>
+    <color name="colorPrimary3">#818cf8</color>
+    <color name="colorOk">#1faa5b</color>
+    <color name="colorWarn">#e08a00</color>
+    <color name="colorDanger">#dc2626</color>
+
+    <!-- 方案 14 进度条：轨道 / 填充（填充由代码按百分比着色，默认取主色） -->
+    <color name="progressTrack">#e6ebf5</color>
+    <color name="progressFill">#22d3ee</color>
+    <color name="progressFill2">#2563eb</color>
+    <color name="progressFill3">#818cf8</color>
+
+    <!-- 自绘胶囊开关：关闭态轨道 -->
+    <color name="switchTrack">#c8cfdd</color>
+    <!-- 卡片内分隔线 -->
+    <color name="cardDivider">#e6ebf5</color>
+    <!-- 守护中大卡的渐变起止（方案 14：135deg, #2563eb → #22d3ee） -->
+    <color name="heroFrom">#2563eb</color>
+    <color name="heroTo">#22d3ee</color>
+    <!-- hero 卡文字：蓝青底上直接用白字，对比度足够（原紫粉底才需要深紫字） -->
+    <color name="heroTitle">#eaf2ff</color>
+    <color name="heroValue">#ffffff</color>
+
+    <!-- 强调色 tint 卡 -->
+    <color name="tintFrom">#202563eb</color>
+    <color name="tintTo">#1f22d3ee</color>
+    <color name="tintBorder">#552563eb</color>
+    <!-- 底栏激活项背景 rgba(37,99,235,.12) -->
+    <color name="navActiveBg">#1f2563eb</color>
+
+    <!-- 状态 pill（默认给「已激活」绿；未激活时由代码覆写为红） -->
+    <color name="pillBg">#263ddc84</color>
+    <color name="pillBorder">#663ddc84</color>
+
+    <!-- chip 激活态底色 rgba(37,99,235,.2) -->
+    <color name="chipActiveBg">#332563eb</color>
+    <!-- 曲线图目标 chip 底色 -->
+    <color name="targetChipBg">#08000000</color>
+    <!-- 列表行按压遮罩 -->
+    <color name="rowRipple">#142563eb</color>
+    <!-- 底栏底 -->
+    <color name="navBarBg">#f4f6fb</color>
+
+    <!-- 自绘单选圆点：未选中圆环色 / 环内填充色 -->
+    <color name="radioOff">#97a1b6</color>
+    <color name="radioOffInner">#ffffff</color>
+</resources>

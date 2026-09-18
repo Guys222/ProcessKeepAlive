@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--
+      LSPosed 作用域（legacy 路径用；modern 路径读 META-INF/xposed/scope.list，两者保持一致）
+      只留 system + 模块自身：
+        system    → 注入 system_server，保活钩子全部依赖它
+        自身包名  → 让模块 App 进程也能写入激活标记，供主页判定
+      不要再加 android：它不会注入 system_server，对保活毫无作用，
+      只会让模块额外挂进普通 app 进程，增加暴露面。
+    -->
+    <string-array name="xposed_scope">
+        <item>system</item>
+        <item>io.github.guys222.processkeepalive</item>
+    </string-array>
+</resources>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 进程页 D 版「其他进程」折叠行：默认把近 200 个非守护进程收成一行，点开才展开 -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingStart="14dp"
+    android:paddingEnd="12dp"
+    android:paddingTop="13dp"
+    android:paddingBottom="13dp"
+    android:gravity="center_vertical"
+    android:background="@drawable/bg_row_card"
+    android:clickable="true"
+    android:focusable="true">
+
+    <TextView
+        android:id="@+id/oh_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:textSize="13.5sp"
+        android:textStyle="bold"
+        android:textColor="@color/colorOnSurface" />
+
+    <TextView
+        android:id="@+id/oh_mem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        android:textColor="@color/colorOnSurfaceVariant" />
+
+    <ImageView
+        android:id="@+id/oh_chevron"
+        android:layout_width="18dp"
+        android:layout_height="18dp"
+        android:src="@drawable/ic_chevron"
+        app:tint="@color/colorOnSurfaceVariant"
+        android:contentDescription="展开/折叠" />
+</LinearLayout>

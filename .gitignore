@@ -1,0 +1,51 @@
+# Gradle / 构建产物
+.gradle/
+build/
+app/build/
+app/release/
+app/debug/
+*.apk
+*.aab
+*.ap_
+*.dex
+
+# 本地配置
+local.properties
+
+# IDE
+.idea/
+*.iml
+*.ipr
+*.iws
+out/
+
+# 签名文件（切勿提交）
+*.jks
+*.keystore
+*.pepk
+key.properties
+
+# 系统文件
+.DS_Store
+Thumbs.db
+
+# 日志
+*.log
+captures/
+.externalNativeBuild/
+.cxx/
+
+# 开发过程文档（不进仓库）
+*验收报告.md
+*交接清单.md
+BUG排查报告.md
+会话交接说明.md
+专题-*.md
+
+# 历史构建产物目录
+历史版本_勿安装/
+
+# 发布产物（请通过 GitHub Release 发布）
+ProcessKeepAlive-v*.apk
+ProcessKeepAlive-v*.bundle
+ProcessKeepAlive-v*.zip

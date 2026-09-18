@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="AppTheme" parent="Theme.Material3.Dark.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorOnPrimary">#1a0d2e</item>
+        <item name="colorPrimaryContainer">@color/colorSurfaceVariant</item>
+        <item name="colorOnPrimaryContainer">@color/colorOnSurface</item>
+        <item name="colorSecondary">@color/colorPrimary2</item>
+        <item name="colorSurface">@color/colorSurface</item>
+        <item name="colorOnSurface">@color/colorOnSurface</item>
+        <item name="colorOnSurfaceVariant">@color/colorOnSurfaceVariant</item>
+        <item name="colorOutline">@color/colorOutline</item>
+        <item name="android:statusBarColor">@color/colorBg</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:windowBackground">@color/colorBg</item>
+        <item name="bottomNavigationStyle">@style/Widget.App.BottomNav</item>
+    </style>
+</resources>

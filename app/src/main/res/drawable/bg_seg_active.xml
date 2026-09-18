@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 预览稿 .seg button.active：linear-gradient(135deg,accent,accent2) + radius 9 -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <gradient
+        android:angle="315"
+        android:type="linear"
+        android:startColor="@color/heroFrom"
+        android:endColor="@color/heroTo" />
+    <corners android:radius="9dp" />
+</shape>
