@@ -12,11 +12,19 @@ An LSPosed / Xposed-based Android background keep-alive module, mainly targeting
 
 Download the latest `ProcessKeepAlive-v3.3.0-release.apk` from the [Releases](https://github.com/Guys222/ProcessKeepAlive/releases) page (release-signed with this project's dedicated keystore). Install directly — no need to build it yourself.
 
-## Screenshots
+## Interface
 
-| Home | Apps | Settings |
-| --- | --- | --- |
-| ![Home](home.jpg) | ![Apps](app.jpg) | ![Settings](settings.jpg) |
+Four bottom-navigation pages: **Home / Apps / Processes / Settings**.
+
+- **Home** — module activation status, Bento overview (guarded / running / message keep-alive),
+  24-hour survival chart (drill down into a single app), guard event timeline
+- **Apps** — search and select target apps; each shows real survival duration and kill/relaunch counters
+- **Processes** — live process board from system_server's view (pid / state / oom_adj / RSS / uptime),
+  with snapshot export
+- **Settings** — dark mode, keep-alive capability toggles, priority tiers, persistent notification,
+  backup & restore
+
+Supports **dark / light / follow-system** themes, plus a 4×1 home-screen widget.
 
 ## What it does
 
@@ -182,7 +190,16 @@ ProcessKeepAlive/
 
 ## Changelog
 
-### v3.3.0 (versionCode 34)
+### v3.3.0 (versionCode 4000)
+
+**Brand-new interface** — the UI was completely rebuilt, turning a bare utility screen into a full app:
+
+- **Four-page navigation**: Home / Apps / Processes / Settings, each with a clear purpose.
+- **Home dashboard**: module activation status, Bento overview cards, a **24-hour survival chart**
+  (custom Canvas line chart, drill down into a single app), and a guard event timeline.
+- **Dark mode**: dark / light / follow-system.
+- **Home-screen widget**: 4×1 guard board, status visible without opening the app.
+- **Capability self-check page**: one-tap environment check (LSPosed activation, scope, OS compatibility).
 
 New features:
 
@@ -200,7 +217,7 @@ New features:
 
 Other:
 
-- Version bumped from 3.2.2 (versionCode 33) to 3.3.0 (versionCode 34).
+- Version bumped from 3.2.2 to 3.3.0. versionCode is now segmented: debug uses the 3000 range (timestamp-based naming), release uses the 4000 range.
 - Chinese and English READMEs updated with the new feature descriptions and directory structure.
 
 ### v3.2.2 (versionCode 33)
@@ -209,11 +226,9 @@ Other:
   LSPosed's domain-squatting check. Users upgrading from the old package are treated as a new module
   and must re-tick the scope and reboot.
 
-## Donation
+## Support
 
-If this module helped you, feel free to buy the author a coffee ☕
-
-![WeChat QR](wechat.jpg)
+If this module helped you, a ⭐ on the repo is appreciated.
 
 ## License
 
